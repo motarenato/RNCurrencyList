@@ -1,18 +1,10 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import styled from 'styled-components/native'
+import {Dimensions, SafeAreaView, StatusBar} from 'react-native'
 
-import ListItem from './src/components/ListItem'
+import {fetchCryptocurrencyList} from './src/api'
+import CurrencyList from './src/containers/CurrencyList/CurrencyList'
 
-import {data} from './src/mocks/data'
-
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native'
 const {height} = Dimensions.get('window')
 
 const AbsoluteListView = styled.View`
@@ -28,25 +20,19 @@ const BaseView = styled.View`
   width: 100%;
 `
 
-const keyExtractor = item => item.id.toString()
 const App = () => {
   const [isModalVisible, changeIsModalVisible] = useState(false)
 
   const openModal = () => changeIsModalVisible(true)
   const closeModal = () => changeIsModalVisible(false)
 
-  console.log(data)
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <BaseView>
           <AbsoluteListView>
-            <FlatList
-              data={data}
-              keyExtractor={keyExtractor}
-              renderItem={item => <ListItem {...item} />}
-            />
+            <CurrencyList />
           </AbsoluteListView>
         </BaseView>
       </SafeAreaView>
