@@ -15,7 +15,7 @@ const fetchCryptocurrencyList = () =>
       params: {
         start: '1',
         limit: '50',
-        convert: 'BRL',
+        convert: 'USD',
       },
     })
     .then(response => {
