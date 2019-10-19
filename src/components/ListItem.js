@@ -51,10 +51,9 @@ class ListItem extends React.PureComponent {
     const {name, id, quote, openModal} = this.props
     const percentChange = quote[priceCurrency].percent_change_24h.toFixed(3)
     const price = quote[priceCurrency].price.toFixed(3)
-    console.log(this.props)
     return (
       <TouchableWithoutFeedback
-        onPress={() => openModal()}
+        onPress={() => openModal(quote[priceCurrency])}
         onPressIn={() => {
           scaleValue.setValue(0)
           Animated.timing(scaleValue, {

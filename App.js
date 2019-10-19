@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react'
 import styled from 'styled-components/native'
 import {Dimensions, SafeAreaView, StatusBar} from 'react-native'
 
-import {fetchCryptocurrencyList} from './src/api'
+import OverlayModal from './src/components/OverlayModal'
 import CurrencyList from './src/containers/CurrencyList/CurrencyList'
 
 const {height} = Dimensions.get('window')
@@ -21,11 +21,6 @@ const BaseView = styled.View`
 `
 
 const App = () => {
-  const [isModalVisible, changeIsModalVisible] = useState(false)
-
-  const openModal = () => changeIsModalVisible(true)
-  const closeModal = () => changeIsModalVisible(false)
-
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />

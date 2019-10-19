@@ -1,37 +1,52 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {FlatList} from 'react-native'
 import styled from 'styled-components/native'
-import {connect} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
+import CurrencyChangeChart from '../../components/CurrencyChangeChart'
 import ListItem from '../../components/ListItem'
-import {requestGetCurrencyList} from './actions'
+import OverlayModal from '../../components/OverlayModal'
+import {actions} from './constants'
 
 const StyledCurrencyList = styled.View``
 
-class CurrencyList extends React.Component {
-  componentDidMount() {
-    this.props.requestGetCurrencyList()
+const CurrencyList = () => {
+  const [isModalVisible, changeIsModalVisible] = useState(false)
+  const [chartData, changeCharData] = useState(null)
+
+  const keyExtractor = item => item.id.toString()
+
+  const cryptoList = useSelector(state => state.listState.cryptoList)
+  const dispatch = useDispatch()
+
+  const openModal = data => {
+    changeCharData(data)
+    changeIsModalVisible(true)
+  }
+  const closeModal = () => {
+    changeCharData(null)
+    changeIsModalVisible(false)
   }
 
-  render() {
-    const keyExtractor = item => item.id.toString()
-    return (
-      <StyledCurrencyList>
-        {console.log(this.props)}
-        <FlatList
-          data={this.props.cryptoList}
-          keyExtractor={keyExtractor}
-          renderItem={data => <ListItem {...data.item} />}
-        />
-      </StyledCurrencyList>
-    )
-  }
+  useEffect(() => {
+    dispatch({type: actions.REQUEST_GET_CURRENCY_LIST})
+  }, [])
+
+  return (
+    <StyledCurrencyList>
+      <FlatList
+        data={cryptoList}
+        keyExtractor={keyExtractor}
+        renderItem={data => <ListItem {...data.item} openModal={openModal} />}
+      />
+      <OverlayModal
+        title="Detalhes"
+        visible={isModalVisible}
+        onClose={() => closeModal()}>
+        {chartData && <CurrencyChangeChart data={chartData} />}
+      </OverlayModal>
+    </StyledCurrencyList>
+  )
 }
 
-const mapStateToProps = store => ({
-  cryptoList: store.listState.cryptoList,
-})
-
-const mapDispatchToProps = {requestGetCurrencyList}
-
-export default connect(mapStateToProps,mapDispatchToProps)(CurrencyList)
+export default CurrencyList
