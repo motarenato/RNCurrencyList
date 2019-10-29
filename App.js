@@ -9,8 +9,6 @@ const {height} = Dimensions.get('window')
 
 const AbsoluteListView = styled.View`
   position: absolute;
-  top: -10px;
-  left: -10px;
   height: ${height};
   width: 100%;
 `
