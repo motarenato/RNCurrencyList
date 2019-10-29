@@ -1,4 +1,5 @@
 # Crypto currency list com React Native
 Currency list with react native
 
-CurrencyList.gif
+
+![](http://www.giphy.com/gifs/SRxTXFBZMVz0yIwJ0q)
