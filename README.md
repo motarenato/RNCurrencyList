@@ -2,4 +2,4 @@
 Currency list with react native
 
 
-![](http://www.giphy.com/gifs/SRxTXFBZMVz0yIwJ0q)
+![Demo](https://media.giphy.com/media/SRxTXFBZMVz0yIwJ0q/giphy.gif)
